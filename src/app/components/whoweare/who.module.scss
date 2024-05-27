@@ -1,0 +1,110 @@
+@import "./src/app/style/variables.scss";
+
+.containerWho {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+    width: 100%;
+
+    background-color: $off-white;
+
+    color: $primary-color;
+
+    .titleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $primary-color;
+        
+        border-left: 100px solid transparent;
+        border-right: 50px solid $off-white;
+        border-top: 100px solid $off-white;
+        border-bottom: 100px solid $off-white;
+
+        height: 50%;
+
+        .title{
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            align-self: flex-start;
+            text-align: left;
+
+            padding: 1rem 1rem;
+        } 
+    }
+
+    .textContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0;
+
+        width: 40%;
+
+        .text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        
+    }
+}
+
+.containerMission {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    height: 50vh;
+    width: 100%;
+
+    background-color: $off-white;
+
+    color: $secondary-color;
+
+    .titleContainerM {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        background-color: $secondary-color;
+        
+        border-left: 100px solid $off-white;
+        border-right: 90px solid transparent;
+        border-top: 100px solid $off-white;
+        border-bottom: 100px solid $off-white;
+
+        height: 50%;
+
+        .titleM{
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            align-self: flex-end;
+            text-align: right;
+            color: $secondary-color;
+            padding: 1rem 1rem;
+        } 
+    }
+
+    .textContainerM {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 40%;
+
+        .textM {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+       
+    }
+}

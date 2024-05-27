@@ -1,0 +1,103 @@
+@import "./src/app/style/variables.scss";
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    height: 90vh;
+
+    padding: 2rem;
+
+    background-color: $primary-color;
+
+    .contact{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        border-right: 1px solid $secondary-color;
+        .title {
+            color: $secondary-color;
+            margin: 1rem;
+        }
+    
+        .text {
+            color: $light-secondary-color;
+            margin: 1rem;
+            width: 70%;
+    
+            a{
+                color:white;
+            }
+            
+        }
+    
+        img{
+            width: 50%;
+            margin: 1rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .newsletterContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        .form{
+            margin: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+    
+            width: 60%;
+            color: $light-secondary-color;
+    
+            .input{
+                width: 100%;
+                margin: 1rem 0;
+                padding: 1rem;
+    
+                border: none;
+                border-radius: 5px;
+    
+                background-color: $off-white;
+                color: $primary-color;
+    
+                &::placeholder{
+                    color: $primary-color;
+                }
+                
+                &:focus{
+                    outline: none;
+                }
+    
+            }
+    
+            .button{
+                width: 100%;
+                margin: 1rem 0;
+                padding: 1rem;
+    
+                border: none;
+                border-radius: 5px;
+    
+                background-color: $secondary-color;
+                color: $primary-color;
+    
+                cursor: pointer;
+    
+                &:hover{
+                    background-color: $light-secondary-color;
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+
+    
+}

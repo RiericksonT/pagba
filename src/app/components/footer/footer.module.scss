@@ -1,0 +1,93 @@
+@import "./src/app/style/variables.scss";
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+
+    background-color: black;
+
+    color: $off-white;
+
+    .footerContainerUp{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+
+        padding: 2rem;
+        color: $off-white;
+
+        .containerLogo{
+            width: 20%;
+        }
+
+        .containerLinks{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+
+            .title{
+                font-size: 1.5rem;
+                margin: 1rem;
+            }
+
+            .link{
+                margin: 0.5rem;
+                color: $off-white;
+                text-decoration: none;
+            }
+        }
+
+        .containerSocial{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            width: 20%;
+
+            .social{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                img{
+                    margin: 0.5rem;
+                    color: $off-white;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+        
+    }
+
+    .footerContainerDown{
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+
+        padding: 0.5rem;
+
+        .text{
+            font-size: 1rem;
+            margin: 1rem;
+        }
+
+        .link{
+
+            color: $off-white;
+            text-decoration: none;
+        }
+
+        
+    }
+}

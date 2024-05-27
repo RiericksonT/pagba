@@ -1,0 +1,51 @@
+
+@import "./src/app/style/variables.scss";
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    height: 100vh;
+
+    background-color: $off-white;
+
+    color: $primary-color;
+
+   .textContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0;
+
+        .title{
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        } 
+
+        .text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            background-color: $secondary-color;
+            color: white;
+            border: none;
+            border-radius: 5rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $light-secondary-color;
+            }
+
+            a {
+                text-decoration: none;
+                color: white;
+            }
+        }
+        
+   }
+}
