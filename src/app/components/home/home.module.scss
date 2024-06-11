@@ -11,6 +11,10 @@
 
     color: $primary-color;
 
+    img{
+        width: 50%;
+    }
+
    .textContainer {
         display: flex;
         flex-direction: column;
@@ -19,7 +23,7 @@
         margin: 0 0;
 
         .title{
-            font-size: 2rem;
+            font-size: 3rem;
             font-weight: 600;
             margin-bottom: 2rem;
         } 
@@ -36,6 +40,11 @@
             border: none;
             border-radius: 5rem;
             cursor: pointer;
+
+            width: 20%;
+            height: 3rem;
+
+            margin-bottom: 1rem;
 
             &:hover {
                 background-color: $light-secondary-color;

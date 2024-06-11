@@ -10,7 +10,7 @@ export default function Contact() {
           Entre em contato conosco através do nosso whatsapp:{" "}
           <a href="https://wa.me/c/558182199466">+55 (81) 98219-9466</a>
         </h2>
-        <Image src="/qrwhats.svg" alt="Whatsapp" width={200} height={200} />
+        <Image src="/qrwhats.svg" alt="Whatsapp" width={250} height={250} />
       </div>
       <div className={styles.newsletterContainer}>
         <form action="" className={styles.form}>

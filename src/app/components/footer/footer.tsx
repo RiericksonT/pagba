@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./footer.module.scss";
 import Image from "next/image";
 
@@ -18,6 +19,9 @@ export default function Footer() {
           <a href="#" className={styles.link}>
             Contato
           </a>
+          <Link href="/login" className={styles.link}>
+            Admin
+          </Link>
         </div>
         <div className={styles.containerSocial}>
           <a href="#" className={styles.social}>

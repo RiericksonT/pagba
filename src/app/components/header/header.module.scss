@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1rem;
+    padding: 0 1rem;
     background-color: $primary-color;
     box-shadow: 0 2rem 1rem $secondary-color;
 
@@ -12,10 +12,15 @@
 
     color: white;
 
+
     .logo {
         font-size: 1.5rem;
         font-weight: 700;
         
+        img {
+            max-width: 75px;
+            max-height: 75px;
+        }
     }
 
     .nav {

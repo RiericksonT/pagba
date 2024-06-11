@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import styles from "./header.module.scss";
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, Phone } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
   const [categories, setCategories] = useState<string[]>([]);
+  const { data: session } = useSession();
   var products = [
     {
       name: "Ps5",
@@ -60,14 +62,24 @@ export default function Header() {
             <li className={styles.products}>
               <Link href="/products">Produtos</Link>
             </li>
+            {session ? (
+              <li>
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+            ) : (
+              <></>
+            )}
           </ul>
         </nav>
       </div>
       <div className={styles.search}>
-        <input type="text" placeholder="Pesquisar" />
-        <button>
-          <Search size={20} />
-        </button>
+        {session ? (
+          <div className={styles.search}>
+            <button onClick={() => signOut()}>Sair</button>
+          </div>
+        ) : (
+          <Phone />
+        )}
       </div>
     </header>
   );
