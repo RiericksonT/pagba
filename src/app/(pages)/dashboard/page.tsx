@@ -6,15 +6,14 @@ import { Pencil, Trash } from "lucide-react";
 import Modal from "@/app/components/modal/modal";
 import ModalProvider from "@/app/components/modal/modalProvider";
 import { ModalContext } from "@/app/components/modal/modalContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Product from "@/interfaces/products";
 
 export default function DashboardPage() {
   const { show, setShow } = useContext(ModalContext);
   const { product, setProduct } = useContext(ModalContext);
   const { data: session } = useSession();
-
-  console.log("SESSION: ", session);
 
   const styleTable = {
     table: {
@@ -110,6 +109,18 @@ export default function DashboardPage() {
       category: "Categoria 2",
     },
   ];
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const res = fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
+      method: "GET",
+    }).then(async (res) => {
+      if (res.ok) {
+        setProducts(await res.json());
+      }
+    });
+  }, [setProducts]);
 
   return (
     <div className={styles.dashboard}>

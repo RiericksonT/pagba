@@ -2,6 +2,8 @@ import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 
+const { NEXT_PUBLIC_API_URL } = process.env;
+
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialProvider({
@@ -11,7 +13,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        const response = await fetch("http://localhost:4000/v1/auth/login", {
+        const response = await fetch(`${NEXT_PUBLIC_API_URL}/v1/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

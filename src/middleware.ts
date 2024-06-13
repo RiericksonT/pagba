@@ -6,7 +6,6 @@ import {
 } from "next-auth/middleware";
 
 const middleware = (request: NextRequestWithAuth) => {
-  console.log("[MIDDLEWARE_NEXTAUTH_TOKEN]: ", request.nextauth.token);
   const isPrivateRoutes = request.nextUrl.pathname.startsWith("/dashboard");
   const isLoggedUser = request.nextauth?.token;
 

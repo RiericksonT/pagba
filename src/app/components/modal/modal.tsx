@@ -7,21 +7,87 @@ import {
   DialogHeader,
 } from "@/app/components/ui/dialog";
 import { ModalContext } from "./modalContext";
+import { useForm } from "react-hook-form";
 import { useContext, useRef, useEffect } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+// Schema de validação com zod
+const schema = z.object({
+  name: z.string().nonempty("Nome é obrigatório"),
+  price: z
+    .string()
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Preço deve ser um número",
+    })
+    .transform((val) => Number(val)),
+  description: z.string().nonempty("Descrição é obrigatória"),
+  category: z.string().nonempty("Categoria é obrigatória"),
+  imagesIds: z.any(),
+});
+
+type FormDataa = z.infer<typeof schema>;
 
 export default function Modal() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataa>({
+    criteriaMode: "all",
+    mode: "all",
+    resolver: zodResolver(schema),
+  });
   const { show, setShow, product, setProduct } = useContext(ModalContext);
+
   const dialogRef = useRef(null);
 
-  // Função para lidar com a mudança de estado do modal
+  const { NEXT_PUBLIC_API_URL } = process.env;
+
+  const handleSubmission = async (data: FormDataa) => {
+    let formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", data.price.toString());
+    formData.append("description", data.description);
+    formData.append("category", data.category);
+    for (let i = 0; i < data.imagesIds.length; i++) {
+      const image = data.imagesIds[i];
+      if (!ACCEPTED_IMAGE_TYPES.includes(image.type)) {
+        alert("Tipo de imagem inválido");
+        return;
+      }
+      formData.append("imagesIds", image);
+    }
+    try {
+      const response = await fetch(`http://localhost:4000/product`, {
+        method: "POST",
+
+        body: formData,
+      });
+      if (response.ok) {
+        alert("Produto adicionado com sucesso");
+      } else {
+        alert(`Erro ao adicionar o produto: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Erro ao adicionar o produto:", error);
+      alert("Erro ao adicionar o produto");
+    }
+  };
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
-      setProduct!(null); // Redefinindo o produto para null quando o modal é fechado
+      setProduct(null);
     }
-    setShow(isOpen); // Atualiza o estado de visibilidade do modal
+    setShow(isOpen);
   };
 
-  // Função para lidar com cliques fora do modal
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dialogRef.current &&
@@ -51,14 +117,20 @@ export default function Modal() {
           {product ? (
             <>
               <h1>Editar Produto</h1>
-              <form className={styles.form}>
+              <form
+                className={styles.form}
+                onSubmit={handleSubmit(handleSubmission)}
+                encType="multipart/form-data"
+              >
                 <div className={styles.formGroup}>
                   <label>Nome</label>
                   <input
                     type="text"
                     placeholder="Nome do produto"
                     defaultValue={product.name}
+                    {...register("name")}
                   />
+                  {errors.name && <span>{errors.name.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Preço</label>
@@ -66,64 +138,108 @@ export default function Modal() {
                     type="number"
                     placeholder="Preço do produto"
                     defaultValue={product.price}
+                    step={0.01}
+                    {...register("price")}
                   />
+                  {errors.price && <span>{errors.price.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Descrição</label>
                   <textarea
                     placeholder="Descrição do produto"
                     defaultValue={product.description}
+                    {...register("description")}
                   ></textarea>
+                  {errors.description && (
+                    <span>{errors.description.message}</span>
+                  )}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Categoria</label>
-                  <select defaultValue={product.category}>
+                  <select
+                    defaultValue={product.category}
+                    {...register("category")}
+                  >
                     <option value="">Selecione uma categoria</option>
                     <option value="Categoria 1">Categoria 1</option>
                     <option value="Categoria 2">Categoria 2</option>
                     <option value="Categoria 3">Categoria 3</option>
                   </select>
+                  {errors.category && <span>{errors.category.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Imagens</label>
-                  <input type="file" multiple className={styles.fileInput} />
+                  <input
+                    type="file"
+                    multiple
+                    className={styles.fileInput}
+                    {...register("imagesIds")}
+                  />
+                  {errors.imagesIds && <span>{errors.imagesIds.message}</span>}
                 </div>
-                <div className={styles.buttons}>
-                  <button type="submit">Salvar</button>
-                  <button type="reset" className={styles.cancel}>
-                    Cancelar
-                  </button>
-                </div>
+
+                <button type="submit">Salvar</button>
+                <button type="reset" className={styles.cancel}>
+                  Cancelar
+                </button>
               </form>
             </>
           ) : (
             <>
               <h1>Adicionar Produto</h1>
-              <form className={styles.form}>
+              <form
+                className={styles.form}
+                onSubmit={handleSubmit(handleSubmission)}
+                encType="multipart/form-data"
+              >
                 <div className={styles.formGroup}>
                   <label>Nome</label>
-                  <input type="text" placeholder="Nome do produto" />
+                  <input
+                    type="text"
+                    placeholder="Nome do produto"
+                    {...register("name")}
+                  />
+                  {errors.name && <span>{errors.name.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Preço</label>
-                  <input type="number" placeholder="Preço do produto" />
+                  <input
+                    type="number"
+                    placeholder="Preço do produto"
+                    step={0.01}
+                    {...register("price")}
+                  />
+                  {errors.price && <span>{errors.price.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Descrição</label>
-                  <textarea placeholder="Descrição do produto"></textarea>
+                  <textarea
+                    placeholder="Descrição do produto"
+                    {...register("description")}
+                  ></textarea>
+                  {errors.description && (
+                    <span>{errors.description.message}</span>
+                  )}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Categoria</label>
-                  <select>
+                  <select {...register("category")}>
                     <option value="">Selecione uma categoria</option>
-                    <option value="1">Categoria 1</option>
-                    <option value="2">Categoria 2</option>
-                    <option value="3">Categoria 3</option>
+                    <option value="Categoria 1">Categoria 1</option>
+                    <option value="Categoria 2">Categoria 2</option>
+                    <option value="Categoria 3">Categoria 3</option>
                   </select>
+                  {errors.category && <span>{errors.category.message}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Imagens</label>
-                  <input type="file" multiple className={styles.fileInput} />
+                  <input
+                    type="file"
+                    multiple
+                    className={styles.fileInput}
+                    {...register("imagesIds")}
+                  />
+                  {errors.imagesIds && <span>{errors.imagesIds.message}</span>}
                 </div>
                 <div className={styles.buttons}>
                   <button type="submit">Adicionar</button>
