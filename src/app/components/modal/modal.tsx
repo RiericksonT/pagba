@@ -242,7 +242,7 @@ export default function Modal() {
                     className={styles.fileInput}
                     {...register("imagesIds")}
                   />
-                  {errors.imagesIds && <span>{errors.imagesIds.message}</span>}
+                  {errors.imagesIds && <span>{errors.description}</span>}
                 </div>
                 <div className={styles.buttons}>
                   <button type="submit">Adicionar</button>
