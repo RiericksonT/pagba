@@ -47,7 +47,7 @@ export default function Modal() {
   });
   const { show, setShow, product, setProduct } = useContext(ModalContext);
 
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const { NEXT_PUBLIC_API_URL } = process.env;
 
@@ -178,7 +178,6 @@ export default function Modal() {
                     className={styles.fileInput}
                     {...register("imagesIds")}
                   />
-                  {errors.imagesIds && <span>{errors.imagesIds.message}</span>}
                 </div>
 
                 <button type="submit">Salvar</button>
@@ -242,7 +241,6 @@ export default function Modal() {
                     className={styles.fileInput}
                     {...register("imagesIds")}
                   />
-                  {errors.imagesIds && <span>{errors.imagesIds.message}</span>}
                 </div>
                 <div className={styles.buttons}>
                   <button type="submit">Adicionar</button>
