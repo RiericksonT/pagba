@@ -7,7 +7,7 @@ interface ModalContextProps {
   show: boolean;
   setShow: (show: boolean) => void;
   product?: Product;
-  setProduct: (product: Product | null) => void;
+  setProduct: (product: Product | undefined) => void;
 }
 
 export const ModalContext = createContext<ModalContextProps>({

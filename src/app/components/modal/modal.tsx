@@ -86,7 +86,7 @@ export default function Modal() {
   };
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
-      setProduct(null);
+      setProduct(undefined);
     }
     setShow(isOpen);
   };
