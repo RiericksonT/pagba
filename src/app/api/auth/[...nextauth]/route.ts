@@ -13,7 +13,7 @@ const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        const response = await fetch(`${NEXT_PUBLIC_API_URL}/v1/auth/login`, {
+        const response = await fetch(`http://localhost:4000/v1/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

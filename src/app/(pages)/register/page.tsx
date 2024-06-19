@@ -26,10 +26,8 @@ export default function RegisterPage() {
     resolver: zodResolver(schema),
   });
 
-  const { NEXT_PUBLIC_API_URL } = process.env;
-
   const handleRegister = async (data: User) => {
-    const response = await fetch(`${NEXT_PUBLIC_API_URL}/user`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

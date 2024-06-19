@@ -66,11 +66,14 @@ export default function Modal() {
       formData.append("imagesIds", image);
     }
     try {
-      const response = await fetch(`http://localhost:4000/product`, {
-        method: "POST",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/product`,
+        {
+          method: "POST",
 
-        body: formData,
-      });
+          body: formData,
+        }
+      );
       if (response.ok) {
         alert("Produto adicionado com sucesso");
       } else {
