@@ -4,31 +4,10 @@ import Product from "@/interfaces/products";
 import styles from "./products.module.scss";
 import ProductCard from "@/app/components/productCard/productCard";
 import { useEffect, useState } from "react";
+import { GET } from "@/app/api/auth/[...nextauth]/route";
 
 export default function Products() {
-  const [products] = useState<Product[]>([
-    {
-      name: "Ps5",
-      category: "Consoles",
-      price: 5000,
-      images: "https://i.imgur.com/5ZQ3j5S.jpg",
-      description: "O melhor console da nova geração.",
-    },
-    {
-      name: "Tv",
-      category: "Eletrônicos",
-      price: 3000,
-      images: "https://i.imgur.com/5ZQ3j5S.jpg",
-      description: "A melhor TV do mercado.",
-    },
-    {
-      name: "Iphone",
-      category: "Celulares",
-      price: 5000,
-      images: "https://i.imgur.com/5ZQ3j5S.jpg",
-      description: "O melhor celular do mercado.",
-    },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   const [copyProducts, setCopyProducts] = useState<Product[]>(products);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -46,13 +25,21 @@ export default function Products() {
       // Filter products by the selected category
       setSelectedCategory(category);
       const filteredProducts = products.filter(
-        (product) => product.category === category
+        (product) => product.category.name === category
       );
       setCopyProducts(filteredProducts);
     }
   }
 
   useEffect(() => {
+    const res = fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
+      method: "GET",
+    }).then(async (res) => {
+      if (res.ok) {
+        const prod = res.json();
+        setProducts(await prod);
+      }
+    });
     if (!selectedCategory) {
       setCopyProducts(products);
     }
@@ -63,11 +50,11 @@ export default function Products() {
       <div className={styles.category}>
         {categories.map((category) => (
           <button
-            key={category}
-            onClick={() => handleClick(category)}
-            className={selectedCategory === category ? styles.active : ""}
+            key={category.id}
+            onClick={() => handleClick(category.id)}
+            className={selectedCategory === category.id ? styles.active : ""}
           >
-            {category}
+            {category.name}
           </button>
         ))}
       </div>

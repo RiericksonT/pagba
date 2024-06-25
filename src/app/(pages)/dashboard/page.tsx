@@ -15,6 +15,16 @@ export default function DashboardPage() {
   const { product, setProduct } = useContext(ModalContext);
   const { data: session } = useSession();
 
+  function handleDelete(id: string) {
+    const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, {
+      method: "DELETE",
+    }).then(async (res) => {
+      if (res.ok) {
+        alert("Produto excluido com sucesso");
+      }
+    });
+  }
+
   const styleTable = {
     table: {
       style: {
@@ -50,11 +60,6 @@ export default function DashboardPage() {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row: any) => row.id,
-      sortable: true,
-    },
-    {
       name: "Nome",
       selector: (row: any) => row.name,
       sortable: true,
@@ -67,7 +72,7 @@ export default function DashboardPage() {
     },
     {
       name: "Categoria",
-      selector: (row: any) => row.category,
+      selector: (row: any) => row.category.name,
       sortable: true,
     },
     {
@@ -81,32 +86,15 @@ export default function DashboardPage() {
           >
             <Pencil size={24} />
           </button>
-          <button>
+          <button
+            onClick={() => {
+              handleDelete(row.id);
+            }}
+          >
             <Trash size={24} />
           </button>
         </div>
       ),
-    },
-  ];
-
-  const data = [
-    {
-      id: 1,
-      name: "Produto 1",
-      price: 100,
-      category: "Categoria 1",
-    },
-    {
-      id: 2,
-      name: "Produto 2",
-      price: 200,
-      category: "Categoria 1",
-    },
-    {
-      id: 3,
-      name: "Produto 3",
-      price: 300,
-      category: "Categoria 2",
     },
   ];
 
@@ -117,10 +105,12 @@ export default function DashboardPage() {
       method: "GET",
     }).then(async (res) => {
       if (res.ok) {
-        setProducts(await res.json());
+        const prod = res.json();
+        setProducts(await prod);
+        console.log(await prod);
       }
     });
-  }, [setProducts]);
+  }, [products]);
 
   return (
     <div className={styles.dashboard}>
@@ -134,7 +124,7 @@ export default function DashboardPage() {
       <div className={styles.table}>
         <DataTable
           columns={columns}
-          data={data}
+          data={products}
           className={styles.dataTable}
           responsive
           fixedHeader

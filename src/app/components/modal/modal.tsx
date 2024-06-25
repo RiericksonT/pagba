@@ -7,10 +7,11 @@ import {
   DialogHeader,
 } from "@/app/components/ui/dialog";
 import { ModalContext } from "./modalContext";
-import { useForm } from "react-hook-form";
-import { useContext, useRef, useEffect } from "react";
+import { set, useForm } from "react-hook-form";
+import { useContext, useRef, useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import category from "@/interfaces/category";
 
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -29,7 +30,7 @@ const schema = z.object({
     })
     .transform((val) => Number(val)),
   description: z.string().nonempty("Descrição é obrigatória"),
-  category: z.string().nonempty("Categoria é obrigatória"),
+  categoryId: z.string().nonempty("Categoria é obrigatória"),
   imagesIds: z.any(),
 });
 
@@ -47,16 +48,16 @@ export default function Modal() {
   });
   const { show, setShow, product, setProduct } = useContext(ModalContext);
 
-  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const [categories, setCategories] = useState<category[]>([]);
 
-  const { NEXT_PUBLIC_API_URL } = process.env;
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const handleSubmission = async (data: FormDataa) => {
     let formData = new FormData();
     formData.append("name", data.name);
     formData.append("price", data.price.toString());
     formData.append("description", data.description);
-    formData.append("category", data.category);
+    formData.append("categoryId", data.categoryId);
     for (let i = 0; i < data.imagesIds.length; i++) {
       const image = data.imagesIds[i];
       if (!ACCEPTED_IMAGE_TYPES.includes(image.type)) {
@@ -106,6 +107,17 @@ export default function Modal() {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
+
+    const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/category`).then(
+      async (res) => {
+        if (res.status === 200) {
+          const data = await res.json();
+          setCategories(data);
+        } else {
+          console.error("Erro ao buscar categorias:", res);
+        }
+      }
+    );
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -160,15 +172,18 @@ export default function Modal() {
                 <div className={styles.formGroup}>
                   <label>Categoria</label>
                   <select
-                    defaultValue={product.category}
-                    {...register("category")}
+                    defaultValue={product.category.name}
+                    {...register("categoryId")}
                   >
-                    <option value="">Selecione uma categoria</option>
-                    <option value="Categoria 1">Categoria 1</option>
-                    <option value="Categoria 2">Categoria 2</option>
-                    <option value="Categoria 3">Categoria 3</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
-                  {errors.category && <span>{errors.category.message}</span>}
+                  {errors.categoryId && (
+                    <span>{errors.categoryId.message}</span>
+                  )}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Imagens</label>
@@ -179,11 +194,12 @@ export default function Modal() {
                     {...register("imagesIds")}
                   />
                 </div>
-
-                <button type="submit">Salvar</button>
-                <button type="reset" className={styles.cancel}>
-                  Cancelar
-                </button>
+                <div className={styles.buttons}>
+                  <button type="submit">Salvar</button>
+                  <button type="reset" className={styles.cancel}>
+                    Cancelar
+                  </button>
+                </div>
               </form>
             </>
           ) : (
@@ -225,13 +241,16 @@ export default function Modal() {
                 </div>
                 <div className={styles.formGroup}>
                   <label>Categoria</label>
-                  <select {...register("category")}>
-                    <option value="">Selecione uma categoria</option>
-                    <option value="Categoria 1">Categoria 1</option>
-                    <option value="Categoria 2">Categoria 2</option>
-                    <option value="Categoria 3">Categoria 3</option>
+                  <select {...register("categoryId")}>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
-                  {errors.category && <span>{errors.category.message}</span>}
+                  {errors.categoryId && (
+                    <span>{errors.categoryId.message}</span>
+                  )}
                 </div>
                 <div className={styles.formGroup}>
                   <label>Imagens</label>
