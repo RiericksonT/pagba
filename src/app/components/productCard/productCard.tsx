@@ -4,6 +4,7 @@ import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 
 export default function ProductCard({ product }: { product: Product }) {
   const settings = {
@@ -30,7 +31,9 @@ export default function ProductCard({ product }: { product: Product }) {
         <h1>{product.name}</h1>
         <p>{product.description}</p>
         <h2>R$ {product.price}</h2>
-        <button className={styles.button}>Comprar</button>
+        <Link className={styles.button} href={`/products/${product.id}`}>
+          Comprar
+        </Link>
       </div>
     </div>
   );

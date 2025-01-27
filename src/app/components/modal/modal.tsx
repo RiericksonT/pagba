@@ -12,6 +12,7 @@ import { useContext, useRef, useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import category from "@/interfaces/category";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -46,7 +47,18 @@ export default function Modal() {
     mode: "all",
     resolver: zodResolver(schema),
   });
-  const { show, setShow, product, setProduct } = useContext(ModalContext);
+  const {
+    show,
+    setShow,
+    typeModal,
+    setTypeModal,
+    product,
+    setProduct,
+    successMessage,
+    setSuccessMessage,
+    errorMessage,
+    setErrorMessage,
+  } = useContext(ModalContext);
 
   const [categories, setCategories] = useState<category[]>([]);
 
@@ -61,7 +73,9 @@ export default function Modal() {
     for (let i = 0; i < data.imagesIds.length; i++) {
       const image = data.imagesIds[i];
       if (!ACCEPTED_IMAGE_TYPES.includes(image.type)) {
-        alert("Tipo de imagem inválido");
+        setTypeModal("error");
+        setErrorMessage("Formato de imagem inválido");
+        setShow(true);
         return;
       }
       formData.append("imagesIds", image);
@@ -76,19 +90,25 @@ export default function Modal() {
         }
       );
       if (response.ok) {
-        alert("Produto adicionado com sucesso");
+        setTypeModal("message");
+        setSuccessMessage("Produto cadastrado com sucesso!");
+        setShow(true);
       } else {
-        alert(`Erro ao adicionar o produto: ${response.statusText}`);
+        setTypeModal("error");
+        setErrorMessage("Erro ao adicionar o produto");
+        setShow(true);
       }
     } catch (error) {
-      console.error("Erro ao adicionar o produto:", error);
-      alert("Erro ao adicionar o produto");
+      setTypeModal("error");
+      setErrorMessage("Erro ao adicionar o produto");
+      setShow(true);
     }
   };
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       setProduct(undefined);
     }
+    setTypeModal("form");
     setShow(isOpen);
   };
 
@@ -114,7 +134,9 @@ export default function Modal() {
           const data = await res.json();
           setCategories(data);
         } else {
-          console.error("Erro ao buscar categorias:", res);
+          setTypeModal("error");
+          setShow(true);
+          setErrorMessage("Erro ao carregar categorias");
         }
       }
     );
@@ -126,85 +148,17 @@ export default function Modal() {
 
   return (
     <Dialog open={show} onOpenChange={handleOpenChange}>
-      <DialogContent className={styles.modal} ref={dialogRef}>
+      <DialogContent
+        className={
+          typeModal === "form" ? styles.modal : styles.messageOnlyModal
+        }
+        ref={dialogRef}
+      >
         <DialogHeader onClick={() => handleOpenChange(false)} />
         <div className={styles.modalContent}>
-          {product ? (
+          {typeModal === "form" ? (
             <>
-              <h1>Editar Produto</h1>
-              <form
-                className={styles.form}
-                onSubmit={handleSubmit(handleSubmission)}
-                encType="multipart/form-data"
-              >
-                <div className={styles.formGroup}>
-                  <label>Nome</label>
-                  <input
-                    type="text"
-                    placeholder="Nome do produto"
-                    defaultValue={product.name}
-                    {...register("name")}
-                  />
-                  {errors.name && <span>{errors.name.message}</span>}
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Preço</label>
-                  <input
-                    type="number"
-                    placeholder="Preço do produto"
-                    defaultValue={product.price}
-                    step={0.01}
-                    {...register("price")}
-                  />
-                  {errors.price && <span>{errors.price.message}</span>}
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Descrição</label>
-                  <textarea
-                    placeholder="Descrição do produto"
-                    defaultValue={product.description}
-                    {...register("description")}
-                  ></textarea>
-                  {errors.description && (
-                    <span>{errors.description.message}</span>
-                  )}
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Categoria</label>
-                  <select
-                    defaultValue={product.category.name}
-                    {...register("categoryId")}
-                  >
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.categoryId && (
-                    <span>{errors.categoryId.message}</span>
-                  )}
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Imagens</label>
-                  <input
-                    type="file"
-                    multiple
-                    className={styles.fileInput}
-                    {...register("imagesIds")}
-                  />
-                </div>
-                <div className={styles.buttons}>
-                  <button type="submit">Salvar</button>
-                  <button type="reset" className={styles.cancel}>
-                    Cancelar
-                  </button>
-                </div>
-              </form>
-            </>
-          ) : (
-            <>
-              <h1>Adicionar Produto</h1>
+              <h1>{product ? "Editar Produto" : "Adicionar Produto"}</h1>
               <form
                 className={styles.form}
                 onSubmit={handleSubmit(handleSubmission)}
@@ -262,13 +216,38 @@ export default function Modal() {
                   />
                 </div>
                 <div className={styles.buttons}>
-                  <button type="submit">Adicionar</button>
+                  <button type="submit">
+                    {product ? "Salvar" : "Adicionar"}
+                  </button>
                   <button type="reset" className={styles.cancel}>
                     Cancelar
                   </button>
                 </div>
               </form>
             </>
+          ) : (
+            <div
+              className={
+                typeModal === "message"
+                  ? `${styles.messageBox} ${styles.success}`
+                  : `${styles.messageBox} ${styles.error}`
+              }
+            >
+              <h1 className={styles.message}>
+                {typeModal === "message" ? (
+                  <>
+                    <FaCheckCircle color="#28a745" />
+                    Sucesso!
+                  </>
+                ) : (
+                  <>
+                    <FaTimesCircle color="#dc3545" />
+                    Erro!
+                  </>
+                )}
+              </h1>
+              <p>{typeModal === "message" ? successMessage : errorMessage}</p>
+            </div>
           )}
         </div>
       </DialogContent>

@@ -11,8 +11,15 @@ import { useSession } from "next-auth/react";
 import Product from "@/interfaces/products";
 
 export default function DashboardPage() {
-  const { show, setShow } = useContext(ModalContext);
-  const { product, setProduct } = useContext(ModalContext);
+  const {
+    show,
+    setShow,
+    product,
+    setProduct,
+    setTypeModal,
+    setErrorMessage,
+    setSuccessMessage,
+  } = useContext(ModalContext);
   const { data: session } = useSession();
 
   function handleDelete(id: string) {
@@ -20,7 +27,13 @@ export default function DashboardPage() {
       method: "DELETE",
     }).then(async (res) => {
       if (res.ok) {
-        alert("Produto excluido com sucesso");
+        setTypeModal("message");
+        setSuccessMessage("Produto deletado com sucesso");
+        setShow(true);
+      } else {
+        setTypeModal("error");
+        setErrorMessage("Erro ao deletar o produto");
+        setShow(true);
       }
     });
   }
@@ -81,7 +94,7 @@ export default function DashboardPage() {
         <div className={styles.actions}>
           <button
             onClick={() => {
-              setProduct!(row), setShow(true);
+              setProduct!(row), setTypeModal("form"), setShow(true);
             }}
           >
             <Pencil size={24} />
@@ -117,7 +130,12 @@ export default function DashboardPage() {
       <h1>Dashboard</h1>
       <div className={styles.header}>
         <h2 className={styles.title}>Olá, {session?.user?.name}</h2>
-        <button className={styles.button} onClick={() => setShow(true)}>
+        <button
+          className={styles.button}
+          onClick={() => {
+            setTypeModal("form"), setShow(true);
+          }}
+        >
           Adicionar Produto
         </button>
       </div>

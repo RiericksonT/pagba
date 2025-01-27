@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import User from "@/interfaces/users";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
+import { useContext } from "react";
+import { ModalContext } from "@/app/components/modal/modalContext";
 
 const schema = z.object({
   name: z.string(),
@@ -27,6 +28,9 @@ export default function RegisterPage() {
     resolver: zodResolver(schema),
   });
 
+  const { setErrorMessage, setSuccessMessage, setShow, setTypeModal } =
+    useContext(ModalContext);
+
   const handleRegister = async (data: User) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
       method: "POST",
@@ -36,7 +40,9 @@ export default function RegisterPage() {
       body: JSON.stringify(data),
     }).then((res) => {
       if (res.ok) {
-        alert("Usuário cadastrado com sucesso");
+        setTypeModal("message");
+        setSuccessMessage("Usuário cadastrado com sucesso");
+        setShow(true);
       }
     });
   };
