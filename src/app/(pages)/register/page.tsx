@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import User from "@/interfaces/users";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 
 const schema = z.object({
   name: z.string(),
@@ -35,7 +36,7 @@ export default function RegisterPage() {
       body: JSON.stringify(data),
     }).then((res) => {
       if (res.ok) {
-        console.log("Usuário cadastrado com sucesso");
+        alert("Usuário cadastrado com sucesso");
       }
     });
   };
