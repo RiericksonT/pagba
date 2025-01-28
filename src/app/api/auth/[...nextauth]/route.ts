@@ -13,24 +13,28 @@ const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        const response = await fetch(
-          `${process.env.NEXTAUTH_URL}/v1/auth/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-            }),
+        try {
+          const response = await fetch(
+            `https://pagba-back.onrender.com/v1/auth/login`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password,
+              }),
+            }
+          );
+          const data = await response.json();
+          if (response.ok && data) {
+            return data;
           }
-        );
-        const data = await response.json();
-        if (response.ok && data) {
-          return data;
+          return null;
+        } catch (error) {
+          console.log(error);
         }
-        return null;
       },
     }),
   ],
