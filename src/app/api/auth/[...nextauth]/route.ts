@@ -15,7 +15,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const response = await fetch(
-            `https://pagba-back.onrender.com/v1/auth/login`,
+            `http://pagba-back.onrender.com/v1/auth/login`,
             {
               method: "POST",
               headers: {

@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Image src="/logo.svg" alt="Logo Pagbá" width={100} height={100} />
+        <Image src="/whatsapp.svg" alt="Logo Pagbá" width={100} height={100} />
       </div>
       <div className={styles.menu}>
         <nav className={styles.nav}>
