@@ -1,110 +1,338 @@
 @import "./src/app/style/variables.scss";
 
-.containerWho {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 50vh;
-    width: 100%;
-
-    background-color: $off-white;
-
-    color: $primary-color;
-
-    .titleContainer {
+@media (min-width: 330px) and (max-width: 720px) {
+    .containerWho {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
-        background-color: $primary-color;
+        height: 50vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $primary-color;
+    
+        .titleContainer {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            background-color: $primary-color;
+            
+            border-left: 4rem solid transparent;
+            border-right: 6rem solid $off-white;
+            border-top: 6rem solid $off-white;
+            border-bottom: 6rem solid $off-white;
+    
+            height: 40%;
+            width: 45%;
+    
+            .title{
+                font-size: 1.5rem;
+                font-weight: 600;
+                align-self: flex-start;
+                text-align: left;
+                color: $primary-color;
+            } 
         
-        border-left: 10rem solid transparent;
-        border-right: 9rem solid $off-white;
-        border-top: 10rem solid $off-white;
-        border-bottom: 10rem solid $off-white;
-
-        height: 50%;
-
-        .title{
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            align-self: flex-start;
-            text-align: left;
-
-            padding: 1rem 1rem;
-        } 
-    }
-
-    .textContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0;
-
-        width: 40%;
-
-        .text {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
         }
+        .textContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 1rem;
 
+            .text {
+                font-size: 1rem;
+                text-align: right;
+            }
+        }
+            
         
+        svg{
+            display: none;
+        }
+    }
+    
+    .containerMission {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
+        height: 50vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $secondary-color;
+    
+        .titleContainerM {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            background-color: $secondary-color;
+            
+            border-left: 6rem solid $off-white;
+            border-right: 4rem solid transparent;
+            border-top: 6rem solid $off-white;
+            border-bottom: 6rem solid $off-white;
+    
+            height: 40%;
+            width: 45%;
+    
+            .titleM{
+                font-size: 1.5rem;
+                font-weight: 600;
+                align-self: flex-end;
+                text-align: right;
+                color: $secondary-color;
+            } 
+        }
+    
+        .textContainerM {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            width: 100%;
+            margin-left: 1rem;
+    
+            .textM {
+                font-size: 1rem;
+            }
+        }
+        svg{
+            display: none;
+        }
+    }
+    
+}
+
+@media (min-width: 721px) and (max-width: 1023px) {
+    .containerWho {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 40vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $primary-color;
+    
+        .titleContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: $primary-color;
+            
+            border-left: 10rem solid transparent;
+            border-right: 9rem solid $off-white;
+            border-top: 10rem solid $off-white;
+            border-bottom: 10rem solid $off-white;
+    
+            height: 50%;
+            width: 30%;
+    
+            .title{
+                font-size: 2rem;
+                font-weight: 600;
+                
+                align-self: flex-start;
+                text-align: left;
+    
+                padding: 1rem 1rem;
+            } 
+        }
+    
+        .textContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0;
+    
+            width: 40%;
+    
+            .text {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+    
+            
+        }
+    }
+    
+    .containerMission {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
+        height: 50vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $secondary-color;
+    
+        .titleContainerM {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            background-color: $secondary-color;
+            
+            border-left: 10rem solid $off-white;
+            border-right: 9rem solid transparent;
+            border-top: 10rem solid $off-white;
+            border-bottom: 10rem solid $off-white;
+    
+            height: 50%;
+            width: 30%;
+    
+            .titleM{
+                font-size: 2rem;
+                font-weight: 600;
+               
+                align-self: flex-end;
+                text-align: right;
+                color: $secondary-color;
+                padding: 1rem 1rem;
+            } 
+        }
+    
+        .textContainerM {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            width: 40%;
+    
+            .textM {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+    
+           
+        }
     }
 }
 
-.containerMission {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    align-items: center;
-    height: 50vh;
-    width: 100%;
-
-    background-color: $off-white;
-
-    color: $secondary-color;
-
-    .titleContainerM {
+@media (min-width: 1024px) {
+    .containerWho {
         display: flex;
-        flex-direction: column-reverse;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
-        background-color: $secondary-color;
-        
-        border-left: 10rem solid $off-white;
-        border-right: 9rem solid transparent;
-        border-top: 10rem solid $off-white;
-        border-bottom: 10rem solid $off-white;
-
-        height: 50%;
-
-        .titleM{
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            align-self: flex-end;
-            text-align: right;
-            color: $secondary-color;
-            padding: 1rem 1rem;
-        } 
-    }
-
-    .textContainerM {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        width: 40%;
-
-        .textM {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        height: 50vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $primary-color;
+    
+        .titleContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: $primary-color;
+            
+            border-left: 10rem solid transparent;
+            border-right: 9rem solid $off-white;
+            border-top: 10rem solid $off-white;
+            border-bottom: 10rem solid $off-white;
+    
+            height: 50%;
+    
+            .title{
+                font-size: 2rem;
+                font-weight: 600;
+                margin-bottom: 2rem;
+                align-self: flex-start;
+                text-align: left;
+    
+                padding: 1rem 1rem;
+            } 
         }
-
-       
+    
+        .textContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0;
+    
+            width: 40%;
+    
+            .text {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+    
+            
+        }
+    }
+    
+    .containerMission {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
+        height: 50vh;
+        width: 100%;
+    
+        background-color: $off-white;
+    
+        color: $secondary-color;
+    
+        .titleContainerM {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            background-color: $secondary-color;
+            
+            border-left: 10rem solid $off-white;
+            border-right: 9rem solid transparent;
+            border-top: 10rem solid $off-white;
+            border-bottom: 10rem solid $off-white;
+    
+            height: 50%;
+    
+            .titleM{
+                font-size: 2rem;
+                font-weight: 600;
+                margin-bottom: 2rem;
+                align-self: flex-end;
+                text-align: right;
+                color: $secondary-color;
+                padding: 1rem 1rem;
+            } 
+        }
+    
+        .textContainerM {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            width: 40%;
+    
+            .textM {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+    
+           
+        }
     }
 }

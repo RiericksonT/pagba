@@ -1,111 +1,343 @@
 @import "./src/app/style/variables.scss";
 
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    height: 90vh;
-
-    padding: 2rem;
-
-    background-color: $primary-color;
-
-    .contact{
-        width: 100%;
+@media (min-width: 330px) and (max-width: 720px) {
+    .container {
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        border-right: 1px solid $secondary-color;
-        .title {
-            color: $secondary-color;
-            margin: 1rem;
-            font-size: 2rem;
-        }
+        height: 100%;
     
-        .text {
-            color: $light-secondary-color;
-            margin: 1rem;
-            width: 70%;
+        padding: 2rem;
     
-            a{
-                color:white;
-            }
-            
-        }
+        background-color: $primary-color;
     
-        img{
-            width: 50%;
-            margin: 1rem;
-            margin-bottom: 2rem;
-
-            max-width: 250px;
-            max-height: 250px;
-        }
-    }
-
-    .newsletterContainer{
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        width: 100%;
-
-        h2{
-            font-size: 1.2rem;
-        }
-        .form{
-            margin: 1rem;
+        .contact{
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: start;
             align-items: center;
-    
-            width: 60%;
-            color: $light-secondary-color;
-    
-            .input{
-                width: 100%;
-                margin: 1rem 0;
-                padding: 1rem;
-    
-                border: none;
-                border-radius: 5px;
-    
-                background-color: $off-white;
-                color: $primary-color;
-    
-                &::placeholder{
-                    color: $primary-color;
+            border-bottom: 1px solid $secondary-color;
+            .title {
+                color: $secondary-color;
+                margin: 1rem;
+                font-size: 2rem;
+            }
+        
+            .text {
+                color: $light-secondary-color;
+                margin: 1rem;
+                width: 70%;
+        
+                a{
+                    color:white;
                 }
                 
-                &:focus{
-                    outline: none;
-                }
-    
             }
+
+            a{
+                color: green;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 5%;
+            }
+        
+            img{
+                display: none;
+            }
+        }
     
-            .button{
-                width: 100%;
-                margin: 1rem 0;
-                padding: 1rem;
+        .newsletterContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            width: 100%;
     
-                border: none;
-                border-radius: 5px;
-    
-                background-color: $secondary-color;
-                color: $primary-color;
-    
-                cursor: pointer;
-    
-                &:hover{
-                    background-color: $light-secondary-color;
+            h2{
+                font-size: 1.2rem;
+            }
+            .form{
+                margin: 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+        
+                width: 80%;
+                color: $light-secondary-color;
+        
+                .input{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 5px;
+        
+                    background-color: $off-white;
                     color: $primary-color;
+        
+                    &::placeholder{
+                        color: $primary-color;
+                    }
+                    
+                    &:focus{
+                        outline: none;
+                    }
+        
+                }
+        
+                .button{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 10px;
+        
+                    background-color: $secondary-color;
+                    color: $primary-color;
+        
+                    cursor: pointer;
+        
+                    &:hover{
+                        background-color: $light-secondary-color;
+                        color: $primary-color;
+                    }
                 }
             }
         }
-    }
-
     
+        
+    }
+}
+
+@media (min-width: 721px) and (max-width: 1023px) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        height: 100%;
+    
+        padding: 15% 1% 15% 1%;
+    
+        background-color: $primary-color;
+    
+        .contact{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            border-right: 1px solid $secondary-color;
+            .title {
+                color: $secondary-color;
+                margin: 1rem;
+                font-size: 2rem;
+            }
+        
+            .text {
+                color: $light-secondary-color;
+                margin: 1rem;
+                width: 70%;
+        
+                a{
+                    color:white;
+                }
+                
+            }
+            svg{
+                display: none;
+            }
+            img{
+                width: 50%;
+                margin: 1rem;
+                margin-bottom: 2rem;
+    
+                max-width: 250px;
+                max-height: 250px;
+            }
+        }
+    
+        .newsletterContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            width: 100%;
+    
+            h2{
+                font-size: 1.2rem;
+            }
+            .form{
+                margin: 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+        
+                width: 60%;
+                color: $light-secondary-color;
+        
+                .input{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 5px;
+        
+                    background-color: $off-white;
+                    color: $primary-color;
+        
+                    &::placeholder{
+                        color: $primary-color;
+                    }
+                    
+                    &:focus{
+                        outline: none;
+                    }
+        
+                }
+        
+                .button{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 5px;
+        
+                    background-color: $secondary-color;
+                    color: $primary-color;
+        
+                    cursor: pointer;
+        
+                    &:hover{
+                        background-color: $light-secondary-color;
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    
+        
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        height: 90vh;
+    
+        padding: 2rem;
+    
+        background-color: $primary-color;
+    
+        .contact{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            border-right: 1px solid $secondary-color;
+            .title {
+                color: $secondary-color;
+                margin: 1rem;
+                font-size: 2rem;
+            }
+        
+            .text {
+                color: $light-secondary-color;
+                margin: 1rem;
+                width: 70%;
+        
+                a{
+                    color:white;
+                }
+                
+            }
+            svg{
+                display: none;
+            }
+            img{
+                width: 50%;
+                margin: 1rem;
+                margin-bottom: 2rem;
+    
+                max-width: 250px;
+                max-height: 250px;
+            }
+        }
+    
+        .newsletterContainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            width: 100%;
+    
+            h2{
+                font-size: 1.2rem;
+            }
+            .form{
+                margin: 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+        
+                width: 60%;
+                color: $light-secondary-color;
+        
+                .input{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 5px;
+        
+                    background-color: $off-white;
+                    color: $primary-color;
+        
+                    &::placeholder{
+                        color: $primary-color;
+                    }
+                    
+                    &:focus{
+                        outline: none;
+                    }
+        
+                }
+        
+                .button{
+                    width: 100%;
+                    margin: 1rem 0;
+                    padding: 1rem;
+        
+                    border: none;
+                    border-radius: 5px;
+        
+                    background-color: $secondary-color;
+                    color: $primary-color;
+        
+                    cursor: pointer;
+        
+                    &:hover{
+                        background-color: $light-secondary-color;
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    
+        
+    }
 }

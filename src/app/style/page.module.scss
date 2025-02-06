@@ -1,0 +1,53 @@
+@media (min-width: 1024px) {
+    .homePage{
+        width: 100%;
+
+        .home{
+            width: 100%;
+        }
+
+        .who{
+            width: 100%;
+        }
+
+        .contact {
+            width:100%
+        }
+    }
+}
+
+@media (min-width: 721px) and (max-width: 1023px) {
+    .homePage{
+        width: 100%;
+
+        .home{
+            width: 100%;
+        }
+
+        .who{
+            width: 100%;
+        }
+
+        .contact {
+            width:100%
+        }
+    }
+}
+
+@media (min-width: 320px) and (max-width: 720px) {
+    .homePage{
+        width: 100%;
+
+        .home{
+            width: 100%;
+        }
+
+        .who{
+            width: 100%;
+        }
+
+        .contact {
+            width:100%
+        }
+    }
+}

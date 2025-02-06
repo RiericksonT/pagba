@@ -6,16 +6,16 @@ import Contact from "./components/contact/contact";
 
 export default function Home() {
   return (
-    <>
-      <div id="home">
+    <main className={style.homePage}>
+      <div id="home" className={style.home}>
         <Head />
       </div>
-      <div id="who">
+      <div id="who" className={style.who}>
         <Who />
       </div>
-      <div id="contact">
+      <div id="contact" className={style.contact}>
         <Contact />
       </div>
-    </>
+    </main>
   );
 }

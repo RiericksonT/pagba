@@ -1,5 +1,7 @@
+import { FaWhatsapp } from "react-icons/fa";
 import styles from "./contact.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Contact() {
   return (
@@ -11,6 +13,9 @@ export default function Contact() {
           <a href="https://wa.me/c/558182199466">+55 (81) 98219-9466</a>
         </h2>
         <Image src="/qrwhats.svg" alt="Whatsapp" width={250} height={250} />
+        <Link href="https://wa.me/c/558182199466">
+          <FaWhatsapp size={80} />
+        </Link>
       </div>
       <div className={styles.newsletterContainer}>
         <form action="" className={styles.form}>
@@ -23,7 +28,7 @@ export default function Contact() {
               className={styles.input}
             />
             <button type="submit" className={styles.button}>
-              Inscrever
+              Inscrever-se
             </button>
           </h2>
         </form>
