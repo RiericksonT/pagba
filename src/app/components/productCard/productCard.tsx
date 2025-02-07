@@ -29,7 +29,7 @@ export default function ProductCard({ product }: { product: Product }) {
       </div>
       <div className={styles.infoContainer}>
         <h1>{product.name}</h1>
-        <p>{product.description}</p>
+        <p className={styles.truncate}>{product.description}</p>
         <h2>R$ {product.price}</h2>
         <Link className={styles.button} href={`/products/${product.id}`}>
           Comprar

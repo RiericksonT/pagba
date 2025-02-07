@@ -4,46 +4,41 @@ import Product from "@/interfaces/products";
 import styles from "./products.module.scss";
 import ProductCard from "@/app/components/productCard/productCard";
 import { useEffect, useState } from "react";
-import { GET } from "@/app/api/auth/[...nextauth]/route";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
-
-  const [copyProducts, setCopyProducts] = useState<Product[]>(products);
+  const [copyProducts, setCopyProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  // Garantindo categorias únicas por ID
   const categories = Array.from(
-    new Set(products.map((product) => product.category))
+    new Map(products.map((p) => [p.category.id, p.category])).values()
   );
 
-  function handleClick(category: string) {
-    if (selectedCategory === category) {
-      // If the same category is clicked again, reset to the original product list
+  function handleClick(categoryId: string) {
+    if (selectedCategory === categoryId) {
       setSelectedCategory(null);
       setCopyProducts(products);
     } else {
-      // Filter products by the selected category
-      setSelectedCategory(category);
+      setSelectedCategory(categoryId);
       const filteredProducts = products.filter(
-        (product) => product.category.name === category
+        (product) => product.category.id === categoryId
       );
       setCopyProducts(filteredProducts);
     }
   }
 
   useEffect(() => {
-    const res = fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
-      method: "GET",
-    }).then(async (res) => {
+    async function fetchProducts() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`);
       if (res.ok) {
-        const prod = res.json();
-        setProducts(await prod);
+        const prod = await res.json();
+        setProducts(prod);
+        setCopyProducts(prod);
       }
-    });
-    if (!selectedCategory) {
-      setCopyProducts(products);
     }
-  }, [products, selectedCategory]);
+    fetchProducts();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -60,7 +55,7 @@ export default function Products() {
       </div>
       <div className={styles.products}>
         {copyProducts.map((product) => (
-          <ProductCard product={product} key={product.name} />
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>

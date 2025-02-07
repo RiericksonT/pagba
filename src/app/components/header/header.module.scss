@@ -27,7 +27,7 @@
         }
     
         .menu{
-            
+            z-index: 2000;
             display: none;
         }
         .menu.open{
@@ -136,6 +136,7 @@
         .nav {
             display: flex;
             gap: 1rem;
+            z-index: -9;
     
             .ul {
                 display: flex;

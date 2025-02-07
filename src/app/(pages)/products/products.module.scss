@@ -1,55 +1,174 @@
 @import "./src/app/style/variables.scss";
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-
-  width: 100%;
-  height: 100vh;
-
-  padding: 3rem;
-  background-color: $off-white;
-
-  .category{
+@media (min-width: 1024px) {
+  .container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: start;
+    flex-direction: column;
+  
     width: 100%;
-
-    gap: 1rem;
-
-    button{
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 0.5rem;
-      background-color: $primary-color;
-      color: white;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s;
-
-      &:hover{
-        background-color: $secondary-color;
-      }
-
-      &.active{
-        background-color: $secondary-color;
+    min-height: 100vh;
+    height:100%;
+  
+    padding: 3rem;
+    background-color: $off-white;
+  
+    .category{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  
+      gap: 1rem;
+  
+      button{
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        background-color: $primary-color;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover{
+          background-color: $secondary-color;
+        }
+  
+        &.active{
+          background-color: $secondary-color;
+        }
       }
     }
+  
+    .products{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  
+      padding: 2rem;
+    }
+  
   }
+}
 
-  .products{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 1rem;
-    justify-content: center;
+@media (min-width: 721px) and (max-width: 1023px) {
+  .container {
+    display: flex;
     align-items: center;
+    justify-content: start;
+    flex-direction: column;
+  
     width: 100%;
-
+    min-height: 100vh;
+    height:100%;
+  
     padding: 2rem;
+    background-color: $off-white;
+  
+    .category{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  
+      gap: 1rem;
+  
+      button{
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        background-color: $primary-color;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover{
+          background-color: $secondary-color;
+        }
+  
+        &.active{
+          background-color: $secondary-color;
+        }
+      }
+    }
+  
+    .products{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  
+      padding: 2rem;
+    }
+  
   }
+}
 
+@media (min-width: 330px) and (max-width: 720px) {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+  
+    width: 100%;
+    min-height: 100vh;
+    height:100%;
+  
+    padding: 1rem;
+    background-color: $off-white;
+  
+    .category{
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      width: 100%;
+      overflow-x: auto;
+      
+  
+      gap: 1rem;
+  
+      button{
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        background-color: $primary-color;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover{
+          background-color: $secondary-color;
+        }
+  
+        &.active{
+          background-color: $secondary-color;
+        }
+      }
+    }
+  
+    .products{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  
+      padding: 2rem;
+    }
+  
+  }
 }
