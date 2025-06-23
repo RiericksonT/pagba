@@ -123,11 +123,12 @@ function ImageWithLoading({ src, alt, width, height }: ImageWithLoadingProps) {
           setLoading(false);
           setError(true);
         }}
-        style={loading || error ? { display: "none" } : { display: "block" }}
-        // só use unoptimized se a imagem for externa e você não quiser otimização Next.js
-        // unoptimized={true}
-        priority={false} // false pq não é imagem critical para carregamento imediato
+        style={{
+          opacity: loading || error ? 0 : 1,
+          transition: "opacity 0.3s ease-in-out",
+        }}
       />
+
     </div>
   );
 }
